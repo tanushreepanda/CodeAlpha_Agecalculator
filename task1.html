@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Age Calculator</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+  }
+  .container {
+    max-width: 400px;
+    margin: 50px auto;
+    text-align: center;
+  }
+  input {
+    padding: 8px;
+    margin: 5px;
+    width: 100px;
+  }
+  button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h2>Age Calculator</h2>
+  <input type="number" id="birthDay" placeholder="Day" min="1" max="31">
+  <input type="number" id="birthMonth" placeholder="Month" min="1" max="12">
+  <input type="number" id="birthYear" placeholder="Year" min="1900" max="2100">
+  <button onclick="calculateAge()">Calculate Age</button>
+  <div id="result"></div>
+</div>
+
+<script>
+  function calculateAge() {
+    var birthDay = document.getElementById("birthDay").value;
+    var birthMonth = document.getElementById("birthMonth").value;
+    var birthYear = document.getElementById("birthYear").value;
+
+    var today = new Date();
+    var birthDate = new Date(birthYear, birthMonth - 1, birthDay);
+    
+    if (birthDate > today) {
+      document.getElementById("result").innerHTML = "Please enter a valid date.";
+      return;
+    }
+    
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var monthDiff = today.getMonth() - birthDate.getMonth();
+    
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    
+    document.getElementById("result").innerHTML = "You are " + age + " years old.";
+  }
+</script>
+</body>
+</html>
